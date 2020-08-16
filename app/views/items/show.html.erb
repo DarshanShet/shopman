@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @item.code %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @item.name %>
+</p>
+
+<p>
+  <strong>Qty in stock:</strong>
+  <%= @item.qty_in_stock %>
+</p>
+
+<p>
+  <strong>Last receiving rate:</strong>
+  <%= @item.last_receiving_rate %>
+</p>
+
+<p>
+  <strong>Receiving uom:</strong>
+  <%= @item.receiving_uom.code %>
+</p>
+
+<p>
+  <strong>Conversion rate:</strong>
+  <%= @item.conversion_rate %>
+</p>
+
+<p>
+  <strong>Billing uom:</strong>
+  <%= @item.billing_uom.code %>
+</p>
+
+<%= link_to 'Edit', edit_item_path(@item) %> |
+<%= link_to 'Back', items_path %>

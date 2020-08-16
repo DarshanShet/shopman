@@ -1,0 +1,129 @@
+<div class="container-fluid mt--5 main_report">
+  <div class="col-xl-12 order-xl-1">
+    <div class="card bg-secondary shadow">
+      <div class="card-header bg-white border-0">
+        <div class="row align-items-center">
+          <div class="col-8">
+            <h3 class="mb-0">Reports</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body report-header">
+        <ul class="nav nav-tabs-code" id="toggles-tab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="toggles-component-tab" data-toggle="tab" href="#toggles-component" role="tab" aria-controls="toggles-component" aria-selected="true">Pending amount customers report</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="toggles-html-tab" data-toggle="tab" href="#toggles-html" role="tab" aria-controls="toggles-html" aria-selected="false">Pending amount Suppliers report</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="toggles-stock-tab" data-toggle="tab" href="#toggles-stock" role="tab" aria-controls="toggles-stock" aria-selected="false">Item Stock</a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div id="toggles-component" class="tab-pane tab-example-result fade active show" role="tabpanel" aria-labelledby="toggles-component-tab">
+            <%= form_tag pending_amount_customers_reports_path, :method => 'get', id: "pendingCustomer", target: "_blank", autocomplete: "off" do %>
+              <%= hidden_field_tag :format, "pdf" %>
+              <div class="row">
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <label class="form-control-label">From date</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                      </div>
+                      <%= text_field_tag :key_from_date, "", class: "datepicker form-control form-control-alternative" %>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <label class="form-control-label">To date</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                      </div>
+                      <%= text_field_tag :key_to_date, "", class: "datepicker form-control form-control-alternative" %>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <label class="form-control-label">Customer name</label>
+                    <input type="text" class="form-control form-control-alternative customerLookup">
+                    <%= hidden_field_tag :key_customer_id, "", class: "customerId" %>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="text-left print-btn">
+                    <%= button_tag "Print", type: "button", class: "btn btn-success mt-2", onClick: "$('form#pendingCustomer').submit();"  %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+          <div id="toggles-html" class="tab-pane fade" role="tabpanel" aria-labelledby="toggles-html-tab">
+            <%= form_tag pending_amount_suppliers_reports_path, :method => 'get', id: "pendingSupplier", target: "_blank", autocomplete: "off" do %>
+              <%= hidden_field_tag :format, "pdf" %>
+              <div class="row">
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <label class="form-control-label">From date</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                      </div>
+                      <%= text_field_tag :key_from_receiving_date, "", class: "datepicker form-control form-control-alternative" %>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <label class="form-control-label">To date</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                      </div>
+                      <%= text_field_tag :key_to_receiving_date, "", class: "datepicker form-control form-control-alternative" %>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <label class="form-control-label">Supplier name</label>
+                    <input type="text" class="form-control form-control-alternative vendorLookup">
+                    <%= hidden_field_tag :key_vendor_id, "", class: "vendorId" %>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="text-left print-btn">
+                    <%= button_tag "Print", type: "button", class: "btn btn-success mt-2", onClick: "$('form#pendingSupplier').submit();"  %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+          <div id="toggles-stock" class="tab-pane fade" role="tabpanel" aria-labelledby="toggles-stock-tab">
+            <%= form_tag item_stock_reports_path, :method => 'get', id: "itemStock", target: "_blank", autocomplete: "off" do %>
+              <%= hidden_field_tag :format, "pdf" %>
+              <div class="form-group stock_report">
+                <div class="col-lg-3">
+                  <div class="form-check">
+                    <%= check_box_tag :exclude_zero, 'true', class: "form-check-input" %>
+                    <label class="form-check-label" for="exclude_zero">Exclude zero</label>
+                  </div>
+                </div>
+
+                <div class="text-left print-btn">
+                  <%= button_tag "Download as excel", type: "button", class: "btn btn-success mt-2", onClick: "$('form#itemStock').find('#format').val('xlsx'); $('form#itemStock').attr('target', ''); $('form#itemStock').submit();"  %>
+                  <%= button_tag "Print", type: "button", class: "btn btn-success mt-2", onClick: "$('form#itemStock').find('#format').val('pdf'); $('form#itemStock').attr('target', '_blank'); $('form#itemStock').submit();"  %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

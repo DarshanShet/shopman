@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Receiving date:</strong>
+  <%= @receiving.receiving_date %>
+</p>
+
+<p>
+  <strong>Receiving number:</strong>
+  <%= @receiving.receiving_number %>
+</p>
+
+<p>
+  <strong>Bill number:</strong>
+  <%= @receiving.bill_number %>
+</p>
+
+<p>
+  <strong>Bill date:</strong>
+  <%= @receiving.bill_date %>
+</p>
+
+<p>
+  <strong>Total amount:</strong>
+  <%= @receiving.total_amount %>
+</p>
+
+<p>
+  <strong>Vendor:</strong>
+  <%= @receiving.vendor %>
+</p>
+
+<p>
+  <strong>Paid amount:</strong>
+  <%= @receiving.paid_amount %>
+</p>
+
+<p>
+  <strong>Pending amount:</strong>
+  <%= @receiving.pending_amount %>
+</p>
+
+<%= link_to 'Edit', edit_receiving_path(@receiving) %> |
+<%= link_to 'Back', receivings_path %>

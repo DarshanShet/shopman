@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  code: MyString
+  name: MyString
+  qty_in_stock: MyString
+  last_receiving_rate: MyString
+  receiving_uom: 
+  conversion_rate: MyString
+  billing_uom: 
+
+two:
+  code: MyString
+  name: MyString
+  qty_in_stock: MyString
+  last_receiving_rate: MyString
+  receiving_uom: 
+  conversion_rate: MyString
+  billing_uom: 

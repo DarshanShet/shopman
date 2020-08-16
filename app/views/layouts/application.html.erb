@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Shopman</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body data-controller="<%= params[:controller] %>" data-action="<%= params[:action] %>">
+    <!-- <p class="notice"><%#= notice %></p>
+    <p class="alert"><%#= alert %></p> -->
+    <% if user_signed_in? %>
+      <%= render 'common/side_bar' %>
+      <div class="main-content">
+        <%= render "common/user_nav", icon_class: get_icon_class, page_name: get_page_name %>
+        <%= render 'layouts/notifications' %>
+        <%= yield %>
+      </div>
+    <% else %>
+      <%= yield %>
+    <% end %>
+    
+  </body>
+</html>

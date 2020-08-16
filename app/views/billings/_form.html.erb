@@ -1,0 +1,125 @@
+<div class="card-body">
+  <%= form_for(billing, html: { autocomplete: "off" }) do |f| %>
+    <h6 class="heading-small text-muted mb-1">Billing information</h6>
+    <div class="pl-lg-4">
+      <div class="row">
+        <div class="col-lg-3">
+          <div class="form-group">
+            <label class="form-control-label">Billing date</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+              </div>
+              <%= f.text_field :billing_date, class: "datepicker form-control form-control-alternative", value: display_date(f.object.billing_date) %>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="form-group">
+            <label class="form-control-label">Billing number</label>
+            <%= f.text_field :billing_number, readonly: "readonly" , class: "form-control form-control-alternative" %>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="form-group">
+            <label class="form-control-label" style="float: right;">Total amount</label>
+            <%= f.text_field :total_amount, class: "form-control form-control-alternative number_field", readonly: true, id: "txtTotalAmount" %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="my-1" />
+
+    <%# if f.object.present? && f.object.customer.present? %>
+      <%#= f.fields_for :customer, f.object.customer do |builder| %>
+        <%= render "customer_information", f: f %>
+      <%# end %>
+    <%# else %>
+      <%#= f.fields_for :customer, Customer.new do |builder| %>
+        <%#= render "customer_information", f: builder %>
+      <%# end %>
+    <%# end %>
+
+    <hr class="my-1" />
+    <div class="card-header bg-white border-0">
+      <div class="row align-items-center">
+        <div class="col-8">
+          <h6 class="heading-small text-muted mb-1">Item details</h6>
+        </div>
+        <% if f.object.present? && f.object.id.blank? %>
+          <div class="col-4 text-right">
+            <%= link_to_add_fields "Add new row", f, :billing_details %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="pl-lg-1">
+      <div class="col-xl-12 mb-8 mb-xl-0">
+        <div class="card shadow">
+          <div class="table-responsive">
+            <!-- Projects table -->
+            <table class="table align-items-center table-flush">
+              <thead class="thead-light">
+               <tr>
+                  <th scope="col">Item name</th>
+                  <th scope="col">Item quantity</th>
+                  <th scope="col">Item rate</th>
+                  <th scope="col">Item total</th>
+                  <th scope="col">Current qty in stock</th>
+                </tr>
+              </thead>
+              <tbody id="renderDetails">
+                <% if f.object.present? && f.object.billing_details.present? %>
+                  <% f.object.billing_details.each do |detail| %>
+                    <%= f.fields_for :billing_details, detail do |builder| %>
+                      <%= render "billing_details", f: builder %>
+                    <% end %>
+                  <% end %>
+                <% else %>
+                  <% for detail_index in 0..10 %>
+                    <%= f.fields_for :billing_details, BillingDetail.new do |builder| %>
+                      <%= render "billing_details", f: builder %>
+                    <% end %>
+                  <% end %>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="my-1" />
+    <h6 class="heading-small text-muted mb-1">Payment Details</h6>
+    <div class="pl-lg-4">
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="form-group">
+            <label class="form-control-label">Paid Amount</label>
+            <%= f.text_field :paid_amount, class: "selectAllText form-control form-control-alternative number_field", id: "txtPaidAmount" %>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="form-group">
+            <label class="form-control-label">Pending Amount</label>
+            <%= f.text_field :pending_amount, class: "form-control form-control-alternative number_field", readonly: true, id: "txtPendingAmount" %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <% if f.object.present? && f.object.id.present? %>
+      <div class="text-left">
+        <%= link_to 'Print', billing_path(@billing, format: 'pdf'), target: :_blank, style: "display:none;", id: "aPrint" %>
+        <%= f.button "Print", type: "button", class: "btn btn-success mt-2", onClick: "$('#aPrint')[0].click();"  %>
+        <%= f.button "Update Payment", type: "submit", class: "btn btn-success mt-2"  %>
+      </div>
+    <% else %>
+      <div class="text-left">
+        <%= f.button "Save", type: "submit", class: "btn btn-success mt-2"  %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

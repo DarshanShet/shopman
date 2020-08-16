@@ -1,0 +1,24 @@
+.fixed-top {
+  position: relative;
+}
+
+.sub_nav_bar {
+  position: relative;
+  width: 100%;
+}
+
+.last_nav {
+  float: right;
+  position: relative;
+  left: 1050px;
+}
+
+.last_nav_btn {
+	float: right;
+  position: relative;
+  left: 1150px;
+}
+
+.bg-dark {
+	background-color: #2E8B57	!important
+}

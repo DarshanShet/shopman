@@ -1,0 +1,37 @@
+<div class="table-responsive">
+  <!-- Projects table -->
+  <table class="table align-items-center table-flush">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Contact number1</th>
+        <th scope="col">Contact number2</th>
+        <th scope="col">Contact number3</th>
+        <th scope="col">Address1</th>
+        <th scope="col">Address2</th>
+        <th colspan="1"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @customers.present? %>
+        <% @customers.each do |customer| %>
+          <tr>
+            <td><%= link_to customer.name,edit_customer_path(customer) %></td>
+            <td><%= customer.contact_number1 %></td>
+            <td><%= customer.contact_number2 %></td>
+            <td><%= customer.contact_number3 %></td>
+            <td><%= customer.address1 %></td>
+            <td><%= customer.address2 %></td>
+            <td><%= link_to customer, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger"  do %> Delete <% end %></td>
+          </tr>
+        <% end %>
+      <% else %>
+        <tr>
+          <td colspan="8" class="no_data" >No Data</td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= show_pagination(@customers) %>

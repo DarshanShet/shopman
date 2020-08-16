@@ -1,0 +1,29 @@
+<div class="table-responsive">
+  <!-- Projects table -->
+  <table class="table align-items-center table-flush">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">Code</th>
+        <th scope="col">Name</th>
+        <th colspan="1"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @uoms.present? %>
+        <% @uoms.each do |uom| %>
+          <tr>
+            <td><%= link_to uom.code, edit_uom_path(uom)%></td>
+            <td><%= uom.name %></td>
+            <td><%= link_to uom, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger"  do %> Delete <% end %></td>
+          </tr>
+        <% end %>
+      <% else %>
+        <tr>
+          <td colspan="8" class="no_data" >No Data</td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= show_pagination(@uoms) %>

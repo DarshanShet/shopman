@@ -1,0 +1,61 @@
+        
+<div class="card-body">
+          
+<div class="card-body">
+  <%= form_for(customer, html: { autocomplete: "off" }) do |f| %>
+
+    <h6 class="heading-small text-muted mb-4">Customer information</h6>
+    <div class="pl-lg-4">
+      <div class="row">
+        <div class="col-lg-9">
+          <div class="form-group">
+            <label class="form-control-label">Name</label>
+            <%= f.text_field :name,class: "form-control form-control-alternative", autofocus: true %>
+          </div>
+        </div>
+        
+      </div>
+      <div class="row">
+        <div class="col-lg-3">
+          <div class="form-group">
+            <label class="form-control-label">Contact number1</label>
+            <%= f.text_field :contact_number1, class: "form-control form-control-alternative" %>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="form-group">
+            <label class="form-control-label">Contact number2</label>
+            <%= f.text_field :contact_number2, class: "form-control form-control-alternative" %>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="form-group">
+            <label class="form-control-label">Contact number3</label>
+            <%= f.text_field :contact_number3, class: "form-control form-control-alternative" %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-9">
+          <div class="form-group">
+            <label class="form-control-label">Address1</label>
+            <%= f.text_area :address1, class: "form-control form-control-alternative" %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-9">
+          <div class="form-group">
+            <label class="form-control-label">Address2</label>
+            <%= f.text_area :address2, class: "form-control form-control-alternative" %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr class="my-4" />
+    <div class="text-left">
+      <%= f.button "Save", type: "submit", class: "btn btn-success mt-2"  %>
+    </div>
+  <% end %>
+</div>
+

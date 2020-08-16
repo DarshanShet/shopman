@@ -1,0 +1,59 @@
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <div class="row mt-5">
+    <div class="col-xl-12 mb-9 mb-xl-0">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <div class="row align-items-center">
+            <div class="col">
+              <h3 class="mb-0">Recent billing list</h3>
+            </div>
+            <div class="col text-right">
+              <%= link_to new_billing_path, class: "btn btn-sm btn-primary" do %>Add new <% end %>
+            </div>
+          </div>
+        </div>
+
+        <%= form_tag billings_path, :method => 'get', id: "searchForm" do %>
+          <div class="pl-lg-4">
+            <div class="row">
+              <div class="col-lg-3">
+                <div class="form-group">
+                  <label class="form-control-label">Billing date</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                    </div>
+                    <%= text_field_tag :key_billing_date, "", class: "datepicker form-control form-control-alternative" %>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="form-group">
+                  <label class="form-control-label">Billing number</label>
+                  <%= text_field_tag :key_billing_number, "",class: "form-control form-control-alternative" %>
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="form-group">
+                  <label class="form-control-label">Customer</label>
+                  <input type="text" class="form-control form-control-alternative customerLookup">
+                  <%= hidden_field_tag :key_customer_id, "", class: "customerId" %>
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="text-left search-btn">
+                  <%= button_tag type: "button", id: "btnSearch", class: "btn btn-info mt-4" do %><i class="fa fa-search"></i><% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
+        <div id="table">
+          <%= render "billing_table" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

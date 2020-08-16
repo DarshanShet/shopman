@@ -1,0 +1,20 @@
+<%= render 'layouts/errors', errors: @billing.errors.present? ? @billing.errors.full_messages : ""  %>
+<div class="container-fluid mt--5">
+	<div class="col-xl-12 order-xl-1">
+	  <div class="card bg-secondary shadow">
+	    <div class="card-header bg-white border-0">
+	      <div class="row align-items-center">
+	        <div class="col-8">
+	          <h3 class="mb-0">New Billing</h3>
+	        </div>
+	        <div class="col-4 text-right">
+	        	<%= link_to 'Back', billings_path, class: "btn btn-sm btn-warning" %>
+	        </div>
+	      </div>
+	    </div>
+
+			<%= render 'form', billing: @billing %>
+
+		</div>
+	</div>
+</div>

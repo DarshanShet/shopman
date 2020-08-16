@@ -1,0 +1,36 @@
+<div class="table-responsive">
+  <!-- Projects table -->
+  <table class="table align-items-center table-flush">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Qty in stock</th>
+        <th scope="col">Last receiving rate</th>
+        <th scope="col">Receiving uom</th>
+        <th scope="col">Conversion rate</th>
+        <th scope="col">Billing uom</th>
+        <!-- <th colspan="1"></th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <% if @items.present? %>
+        <% @items.each do |item| %>
+          <tr>
+            <td><%= link_to item.name, edit_item_path(item) %></td>
+            <td><%= item.qty_in_stock %></td>
+            <td><%= item.last_receiving_rate %></td>
+            <td><%= item.receiving_uom.code %></td>
+            <td><%= item.conversion_rate %></td>
+            <td><%= item.billing_uom.code %></td>
+            <!-- <td><%#= link_to item, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger"  do %> Delete <%# end %></td> -->
+          </tr>
+        <% end %>
+      <% else %>
+        <tr>
+          <td colspan="8" class="no_data" >No Data</td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%= show_pagination(@items) %>

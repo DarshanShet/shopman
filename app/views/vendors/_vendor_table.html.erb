@@ -1,0 +1,32 @@
+<div class="table-responsive">
+  <!-- Projects table -->
+  <table class="table align-items-center table-flush">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Contact number1</th>
+        <th scope="col">Contact number2</th>
+        <th scope="col">Contact number3</th>
+        <th colspan="1"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @vendors.present? %>
+        <% @vendors.each do |vendor| %>
+          <tr>
+            <td><%= link_to vendor.name, edit_vendor_path(vendor) %></td>
+            <td><%= vendor.contact_number1 %></td>
+            <td><%= vendor.contact_number2 %></td>
+            <td><%= vendor.contact_number3 %></td>
+            <td><%= link_to vendor, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger"  do %> Delete <% end %></td>
+          </tr>
+        <% end %>
+      <% else %>
+        <tr>
+          <td colspan="8" class="no_data" >No Data</td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%= show_pagination(@vendors) %>

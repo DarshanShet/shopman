@@ -1,0 +1,38 @@
+<div class="table-responsive">
+  <!-- Projects table -->
+  <table class="table align-items-center table-flush">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">Billing number</th>
+        <th scope="col">Billing date</th>
+        <th scope="col">Customer</th>
+        <th scope="col">Total amount</th>
+        <th scope="col">Paid amount</th>
+        <th scope="col">Pending amount</th>
+        <th colspan="1"></th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <% if @billings.present? %>
+        <% @billings.each do |billing| %>
+          <tr>
+            <td><%= link_to billing.billing_number, edit_billing_path(billing) %></td>
+            <td><%= display_date(billing.billing_date) %></td>
+            <td><%= billing.customer.name %></td>
+            <td><%= billing.total_amount %></td>
+            <td><%= billing.paid_amount %></td>
+            <td><%= billing.pending_amount %></td>
+            <td><%= link_to billing_path(billing, format: 'pdf'), target: :_blank, title: "Print" do %><i class="fa fa-print" aria-hidden="true"></i> <% end %></td>
+            <!-- <td><%#= link_to billing, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger"  do %> Delete <%# end %></td> -->
+          </tr>
+        <% end %>
+      <% else %>
+        <tr>
+          <td colspan="8" class="no_data" >No Data</td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%= show_pagination(@billings) %>

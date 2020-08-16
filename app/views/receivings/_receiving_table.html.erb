@@ -1,0 +1,42 @@
+
+<div class="table-responsive">
+  <!-- Projects table -->
+  <table class="table align-items-center table-flush">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">Receiving no</th>
+        <th scope="col">Receiving date</th>
+        <th scope="col">Vendor</th>
+        <th scope="col">Bill no</th>
+        <th scope="col">Bill date</th>
+        <th scope="col">Total amount</th>
+        <th scope="col">Paid amount</th>
+        <th scope="col">Pending amount</th>
+        <th colspan="1"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @receivings.present? %>
+        <% @receivings.each do |receiving| %>
+          <tr>
+            <td><%= link_to receiving.receiving_number, edit_receiving_path(receiving) %></td>
+            <td><%= display_date(receiving.receiving_date) %></td>
+            <td><%= receiving.vendor.name %></td>
+            <td><%= receiving.bill_number %></td>
+            <td><%= display_date(receiving.bill_date) %></td>
+            <td><%= receiving.total_amount %></td>
+            <td><%= receiving.paid_amount %></td>
+            <td><%= receiving.pending_amount %></td>
+            <td><%= link_to receiving_path(receiving, format: 'pdf'), target: :_blank, title: "Print" do %><i class="fa fa-print" aria-hidden="true"></i> <% end %></td>
+            <!-- <td><%#= link_to receiving, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger"  do %> Delete <%# end %></td> -->
+          </tr>
+        <% end %>
+      <% else %>
+        <tr>
+          <td colspan="8" class="no_data" >No Data</td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%= show_pagination(@receivings) %>

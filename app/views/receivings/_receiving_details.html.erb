@@ -1,0 +1,12 @@
+<tr class="receiving_details">
+  <% item_details = get_item_details(f.object)%>
+  <td><%= f.text_field :item_name, class: "itemLookup form-control form-control-alternative table_text_field", value: item_details[:name]  %>
+  	<%= f.hidden_field :item_id, class: "itemId" %>
+  </td>
+  <td>
+    <%= f.text_field :item_quantity, class: "itemQuantity selectAllText form-control form-control-alternative table_text_field number_field" %>
+    <input type="hidden" class="conversionRate" value="<%= item_details[:conversion_rate] %>">
+  </td>
+  <td><%= f.text_field :item_rate, class: "itemRate selectAllText form-control form-control-alternative table_text_field number_field" %></td>
+  <td><%= f.text_field :item_total, class: "itemTotal form-control form-control-alternative table_text_field number_field", readonly: "readonly" %></td>
+</tr>

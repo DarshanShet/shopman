@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Customer:</strong>
+  <%= @billing.customer %>
+</p>
+
+<p>
+  <strong>Billing date:</strong>
+  <%= @billing.billing_date %>
+</p>
+
+<p>
+  <strong>Billing number:</strong>
+  <%= @billing.billing_number %>
+</p>
+
+<p>
+  <strong>Total amount:</strong>
+  <%= @billing.total_amount %>
+</p>
+
+<p>
+  <strong>Paid amount:</strong>
+  <%= @billing.paid_amount %>
+</p>
+
+<p>
+  <strong>Pending amount:</strong>
+  <%= @billing.pending_amount %>
+</p>
+
+<%= link_to 'Edit', edit_billing_path(@billing) %> |
+<%= link_to 'Back', billings_path %>

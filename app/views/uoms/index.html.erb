@@ -1,0 +1,42 @@
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <div class="row mt-5">
+    <div class="col-xl-12 mb-6 mb-xl-0">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <div class="row align-items-center">
+            <div class="col">
+              <h3 class="mb-0">Uoms List</h3>
+            </div>
+            <div class="col text-right">
+              <%= link_to new_uom_path, class: "btn btn-sm btn-primary" do %>Add new<% end %>
+            </div>
+          </div>
+        </div>
+
+        <%= form_tag uoms_path, :method => 'get', id: "searchForm" do %>
+          <div class="pl-lg-4">
+            <div class="row">
+              <div class="col-lg-3">
+                <div class="form-group">
+                  <label class="form-control-label">UOM name</label>
+                  <%= text_field_tag :key_uom_name, "",class: "form-control form-control-alternative" %>
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="text-left search-btn">
+                  <%= button_tag type: "button", id: "btnSearch", class: "btn btn-info mt-4" do %><i class="fa fa-search"></i><% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
+        <div id="table">
+          <%= render "uom_table" %>
+        </div>
+        <%= render "common/import_excel", form_action: import_uoms_path, title: "Import UOMs" %>
+      </div>
+    </div>
+  </div>
+</div>
