@@ -68,8 +68,9 @@ module ApplicationHelper
     }
   end
 
-  def get_icon_class
-    nav_bar_class[params[:controller].to_sym]
+  def get_icon_class(name=nil)
+    controller_name = name.present? ? name.to_sym : params[:controller].to_sym
+    nav_bar_class[controller_name]
   end
   
   def get_page_name

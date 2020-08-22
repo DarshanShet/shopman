@@ -1,0 +1,36 @@
+<% if params[:action] == "index" %>
+  <div class="fixed-action-btn">
+    <a href="#" class="btn-floating" id="btnFlot">
+      <i class="fa fa-plus float"></i>
+    </a>
+    <ul>
+      <li>
+        <%= link_to new_billing_path, class: 'floating-link' do %>
+          <i class="<%= get_icon_class("billings") %> float"></i>
+        <% end %>
+        <div class="label-container billings">
+          <div class="label-text">Add bill</div>
+          <i class="fa fa-play label-arrow"></i>
+        </div>
+      </li>
+      <li>
+        <%= link_to new_receiving_path, class: 'floating-link' do %>
+          <i class="<%= get_icon_class("receivings") %> float"></i>
+        <% end %>
+        <div class="label-container receivings">
+          <div class="label-text">Add receiving</div>
+          <i class="fa fa-play label-arrow"></i>
+        </div>
+      </li>
+      <li>
+        <%= link_to new_item_path, class: 'floating-link' do %>
+          <i class="<%= get_icon_class("items") %> float"></i>
+        <% end %>
+        <div class="label-container items">
+          <div class="label-text">Add items</div>
+          <i class="fa fa-play label-arrow"></i>
+        </div>
+      </li>
+    </ul>
+  </div>
+<% end %>
