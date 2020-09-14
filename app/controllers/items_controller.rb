@@ -70,7 +70,7 @@ class ItemsController < ApplicationController
   def import
     if params[:file].present?
       spreadsheet = Roo::Spreadsheet.open(params[:file].path)
-      header = spreadsheet.row(1)
+      header = spreadsheet.row(1).map{|x| x.downcase.tr(" ", "_")}
       (2..spreadsheet.last_row).each do |i|
         row = Hash[[header, spreadsheet.row(i)].transpose]
         if Item.find_by_code(row["code"]).blank?
@@ -86,12 +86,11 @@ class ItemsController < ApplicationController
           }
 
           if item.save
-            
           else
             item.errors.full_messages.each do |message|
               flash_message(:error, "Line no #{i} : #{message}")
             end
-          end          
+          end
         else
           flash_message(:error, "Line no #{i} : #{row["code"]} already exists")
         end
@@ -106,6 +105,41 @@ class ItemsController < ApplicationController
     else
       flash[:error] = "Please select file."
       redirect_to items_path
+    end
+  end
+
+  def update_stock
+    if params[:item_stock].present?
+      spreadsheet = Roo::Spreadsheet.open(params[:item_stock].path)
+      header = spreadsheet.row(1).map{|x| x.downcase.tr(" ", "_")}
+      (2..spreadsheet.last_row).each do |i|
+        row = Hash[[header, spreadsheet.row(i)].transpose]
+        code = row["code"]
+        qty_in_stock = row["qty_in_stock"]
+
+        if code.present? && qty_in_stock.present?
+          item = Item.find_by_code(code)
+          if item.present?
+            if item.update(qty_in_stock: qty_in_stock)
+            else
+              item.errors.full_messages.each do |message|
+                flash_message(:error, "Line no #{i} : #{message}")
+              end
+            end
+          else
+            flash_message(:error, "Line no #{i} : #{code} not exists")
+          end
+        else
+          flash_message(:error, "Line no #{i} : item code / Qty in stock cant be blank")
+        end
+      end
+
+      if flash[:error].blank?
+        flash[:notice] = "Item stock was updated successfully."
+        redirect_to items_path
+      else
+        redirect_to items_path
+      end
     end
   end
 

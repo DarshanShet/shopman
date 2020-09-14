@@ -1,5 +1,5 @@
 class ReceivingsController < ApplicationController
-  before_action :set_receiving, only: [:show, :edit, :update, :destroy]
+  before_action :set_receiving, only: [:show, :edit]
 
   # GET /receivings
   # GET /receivings.json
@@ -52,6 +52,7 @@ class ReceivingsController < ApplicationController
   # PATCH/PUT /receivings/1
   # PATCH/PUT /receivings/1.json
   def update
+    @receiving = Receiving.find(params[:id])
     respond_to do |format|
       if @receiving.update(update_receiving_params)
         format.html { redirect_to receivings_path, notice: 'Receiving was successfully updated.' }
@@ -76,7 +77,7 @@ class ReceivingsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_receiving
-      @receiving = Receiving.find(params[:id])
+      @receiving = Receiving.includes(:receiving_details=> [:item], :vendor => []).find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -1,6 +1,6 @@
 class BillingsController < ApplicationController
   require "thinreports-rails"
-  before_action :set_billing, only: [:show, :edit, :update, :destroy]
+  before_action :set_billing, only: [:show, :edit, :destroy]
 
   # GET /billings
   # GET /billings.json
@@ -32,6 +32,7 @@ class BillingsController < ApplicationController
 
   # GET /billings/1/edit
   def edit
+    @billing = Billing.includes(:billing_details=> [:item], :customer => []).find(params[:id])
   end
 
   # POST /billings
@@ -55,6 +56,7 @@ class BillingsController < ApplicationController
   # PATCH/PUT /billings/1
   # PATCH/PUT /billings/1.json
   def update
+    @billing = Billing.find(params[:id])
     respond_to do |format|
       if @billing.update(update_billing_params)
         format.html { redirect_to billings_path, notice: 'Billing was successfully updated.' }
@@ -103,7 +105,7 @@ class BillingsController < ApplicationController
     end
     # Use callbacks to share common setup or constraints between actions.
     def set_billing
-      @billing = Billing.find(params[:id])
+      @billing = Billing.includes(:billing_details=> [:item], :customer => []).find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -1,0 +1,7 @@
+<tr class="billing_details">
+  <% item_details = get_item_details(f.object)%>
+  <td><%= item_details[:name] %></td>
+  <td><%= f.object.item_quantity %></td>
+  <td><%= f.object.item_rate %></td>
+  <td><%= f.object.item_total %></td>
+</tr>

@@ -23,7 +23,7 @@ var receiving = new function () {
 
         return false;
       }
-    })
+    });
   }
 
   this.onNewItemRender = function(){
@@ -46,6 +46,11 @@ var receiving = new function () {
     	$("#renderDetails").append($(this).data('fields').replace(regexp, time));
     	me.onNewItemRender();
   	});
+  }
+
+  this.deleteRow = function(thisA){
+    $(thisA).parents("tr").remove();
+    me.calculateTotalReceivingAmout();
   }
 
   this.calculateItemTotal = function(){

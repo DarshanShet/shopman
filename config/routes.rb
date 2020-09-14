@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :items do
     collection do 
       post :import
+      post :update_stock
       get :download_excel
     end
   end

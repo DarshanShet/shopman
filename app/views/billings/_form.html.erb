@@ -63,6 +63,9 @@
             <table class="table align-items-center table-flush">
               <thead class="thead-light">
                <tr>
+                  <% if f.object.id.blank? %>
+                    <th scope="col">Delete</th>
+                  <% end %>
                   <th scope="col">Item name</th>
                   <th scope="col">Item quantity</th>
                   <th scope="col">Item rate</th>
@@ -74,7 +77,7 @@
                 <% if f.object.present? && f.object.billing_details.present? %>
                   <% f.object.billing_details.each do |detail| %>
                     <%= f.fields_for :billing_details, detail do |builder| %>
-                      <%= render "billing_details", f: builder %>
+                      <%= render "show_billing_details", f: builder %>
                     <% end %>
                   <% end %>
                 <% else %>
@@ -114,7 +117,9 @@
       <div class="text-left">
         <%= link_to 'Print', billing_path(@billing, format: 'pdf'), target: :_blank, style: "display:none;", id: "aPrint" %>
         <%= f.button "Print", type: "button", class: "btn btn-success mt-2", onClick: "$('#aPrint')[0].click();"  %>
-        <%= f.button "Update Payment", type: "submit", class: "btn btn-success mt-2"  %>
+        <% if f.object.total_amount != f.object.paid_amount %>
+          <%= f.button "Update Payment", type: "submit", class: "btn btn-success mt-2"  %>
+        <% end %>
       </div>
     <% else %>
       <div class="text-left">

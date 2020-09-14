@@ -115,3 +115,13 @@
     opacity: 1;
   }
 }
+
+td.deleteRow {
+  justify-content: center;
+  align-items: center;
+  padding-left: 25px !important;
+  i.fa.fa-trash {
+    color: red;
+  }
+}
+

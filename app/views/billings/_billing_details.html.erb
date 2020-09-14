@@ -1,5 +1,6 @@
 <tr class="billing_details">
   <% item_details = get_item_details(f.object)%>
+  <td class="deleteRow"><a onClick="receiving.deleteRow(this);" title="Delete row"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
   <td><%= f.text_field :item_name, class: "itemLookup form-control form-control-alternative table_text_field", value: item_details[:name] %>
   	<%= f.hidden_field :item_id, class: "itemId" %>
   </td>
@@ -10,5 +11,4 @@
   <td><%= f.text_field :item_rate, class: "itemRate selectAllText form-control form-control-alternative table_text_field number_field" %></td>
   <td><%= f.text_field :item_total, class: "itemTotal form-control form-control-alternative table_text_field number_field", readonly: "readonly" %></td>
   <td><input type="text" class="currentQtyInStock form-control form-control-alternative table_text_field number_field" readonly="readonly"></td>
-
 </tr>

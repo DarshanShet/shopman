@@ -34,7 +34,7 @@ module ApplicationHelper
   end
 
   def get_item_details(obj)
-    return obj.present? && obj.item_id.present? ? obj.item : {name: "", conversion_rate: 1}
+    return obj.present? && obj.item_id.present? ? obj.item : { name: "", conversion_rate: 1, qty_in_stock: 0}
   end
 
   def flash_message(type, text)
@@ -62,7 +62,7 @@ module ApplicationHelper
       "receivings": "Receivings",
       "billings": "Billings",
       "uoms": "UNIT OF MEASUREMENT",
-      "dashbords": "Dashbord",
+      "dashbords": "Dashboard",
       "items": "Items",
       "reports": "Reports"
     }

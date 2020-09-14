@@ -1,5 +1,6 @@
 <tr class="receiving_details">
   <% item_details = get_item_details(f.object)%>
+  <td class="deleteRow"><a onClick="receiving.deleteRow(this);" title="Delete row"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
   <td><%= f.text_field :item_name, class: "itemLookup form-control form-control-alternative table_text_field", value: item_details[:name]  %>
   	<%= f.hidden_field :item_id, class: "itemId" %>
   </td>

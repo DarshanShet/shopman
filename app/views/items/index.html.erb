@@ -36,6 +36,23 @@
         </div>
 
         <%= render "common/import_excel", form_action: import_items_path, title: "Import Items" %>
+
+        <hr class="my-3" />
+        <div class="pl-lg-2">
+          <h5 class="heading text-muted"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Update item stock</h5>
+        </div>
+        <%= form_tag update_stock_items_path, multipart: true do %>
+          <div class="pl-lg-4">
+            <div class="row">
+              <div class="form-group">
+                <%= file_field_tag :item_stock, class: "form-control-file" %>
+                <div class="text-left">
+                  <%= button_tag type: "submit", class: "btn btn-info mt-4" do %><i class="fa fa-upload"></i> Import<% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
