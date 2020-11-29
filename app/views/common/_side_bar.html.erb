@@ -5,8 +5,14 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <!-- Brand -->
-    <%= link_to dashbords_path, class: "navbar-brand pt-0"  do %>
-      <%= image_tag ("/freeLogo.jpeg"), class: "navbar-brand-img" %>
+    <% if current_user.shop.present? %>
+      <%= link_to dashbords_path, class: 'shop_logo'  do %>
+        <span><%= current_user.shop.shop_name %> </span>
+      <% end %>
+    <% else %>
+      <%= link_to dashbords_path  do %>
+        <%= image_tag ("/freeLogo.jpeg"), class: "navbar-brand-img" %>
+      <% end %>
     <% end %>
     
     <!-- Collapse -->
@@ -15,8 +21,14 @@
       <div class="navbar-collapse-header d-md-none">
         <div class="row">
           <div class="col-6 collapse-brand">
-            <%= link_to dashbords_path  do %>
-              <%= image_tag ("/freeLogo.jpeg"), class: "navbar-brand-img" %>
+            <% if current_user.shop.present? %>
+              <%= link_to dashbords_path  do %>
+                <span><%= current_user.shop.shop_name %> </span>
+              <% end %>
+            <% else %>
+              <%= link_to dashbords_path  do %>
+                <%= image_tag ("/freeLogo.jpeg"), class: "navbar-brand-img" %>
+              <% end %>
             <% end %>
           </div>
           <div class="col-6 collapse-close">

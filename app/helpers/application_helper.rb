@@ -51,7 +51,8 @@ module ApplicationHelper
       "uoms": "ni ni-compass-04",
       "dashbords": "fa fa-home",
       "items": "ni ni-ruler-pencil",
-      "reports": "ni ni-paper-diploma"
+      "reports": "ni ni-paper-diploma",
+      "shops": "fa fa-cogs"
     }
   end
 
@@ -64,7 +65,8 @@ module ApplicationHelper
       "uoms": "UNIT OF MEASUREMENT",
       "dashbords": "Dashboard",
       "items": "Items",
-      "reports": "Reports"
+      "reports": "Reports",
+      "shops": "Settings"
     }
   end
 

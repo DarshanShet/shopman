@@ -101,9 +101,9 @@ class ReceivingsController < ApplicationController
         vendor_name: receiving.vendor.name,
         vendor_address: receiving.vendor.address1,
         vendor_number: receiving.vendor.contact_number1,
-        shop_name: "ShopMan",
-        shop_address: "Sai Market, APMC, Near Axis Bank, Vashi",
-        shop_mobile_number: "M. 7208516101")
+        shop_name: current_user.shop.present? ? current_user.shop.shop_name : "",
+        shop_address: current_user.shop.present? ? current_user.shop.shop_address : "",
+        shop_mobile_number: "M. #{current_user.shop.present? ? current_user.shop.shop_mobile : ""}")
 
       report.page.list do |list|
 

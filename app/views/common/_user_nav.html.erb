@@ -19,6 +19,10 @@
           <div class=" dropdown-header noti-title">
             <h6 class="text-overflow m-0">Welcome!</h6>
           </div>
+          <%= link_to shops_path, class: "dropdown-item" do %>
+            <i class="fa fa-cogs"></i>
+            <span>Settings</span>
+          <% end %>
           <%= link_to destroy_user_session_path, :method => :delete, class: "dropdown-item" do %>
             <i class="ni ni-user-run"></i>
             <span>Logout</span>

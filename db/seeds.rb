@@ -22,3 +22,9 @@ uoms = [{
 }]
 
 Uom.create(uoms)
+
+Shop.find_or_create_by!(shop_name: "Shopman") do |r|
+	r.shop_address = "Sai Market, APMC, Near Axis Bank, Vashi"
+	r.shop_mobile = "7208516101"
+	r.shop_email = "darshan@shopman.com"
+end

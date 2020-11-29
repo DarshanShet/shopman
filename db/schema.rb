@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200704103955) do
+ActiveRecord::Schema.define(version: 20201129062128) do
 
   create_table "billing_details", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "billing_id"
@@ -88,6 +88,26 @@ ActiveRecord::Schema.define(version: 20200704103955) do
     t.index ["vendor_id"], name: "index_receivings_on_vendor_id", using: :btree
   end
 
+  create_table "shops", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "shop_name",    limit: 50
+    t.string   "shop_address", limit: 500
+    t.string   "shop_mobile",  limit: 50
+    t.string   "shop_email",   limit: 50
+    t.string   "shop_img"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  create_table "stock_update_logs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.integer  "item_id"
+    t.decimal  "old_stock",   precision: 10
+    t.decimal  "new_stock",   precision: 10
+    t.decimal  "discrepancy", precision: 10
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.index ["item_id"], name: "index_stock_update_logs_on_item_id", using: :btree
+  end
+
   create_table "uoms", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "code",       limit: 10, null: false
     t.string   "name",       limit: 50, null: false
@@ -104,8 +124,10 @@ ActiveRecord::Schema.define(version: 20200704103955) do
     t.datetime "remember_created_at"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.integer  "shop_id"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+    t.index ["shop_id"], name: "index_users_on_shop_id", using: :btree
   end
 
   create_table "vendors", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -125,4 +147,6 @@ ActiveRecord::Schema.define(version: 20200704103955) do
   add_foreign_key "receiving_details", "items"
   add_foreign_key "receiving_details", "receivings"
   add_foreign_key "receivings", "vendors"
+  add_foreign_key "stock_update_logs", "items"
+  add_foreign_key "users", "shops"
 end

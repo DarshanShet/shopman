@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  item_id: one
+  old_stock: 9.99
+  new_stock: 9.99
+  discrepancy: 9.99
+
+two:
+  item_id: two
+  old_stock: 9.99
+  new_stock: 9.99
+  discrepancy: 9.99

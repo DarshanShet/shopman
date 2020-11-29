@@ -8,7 +8,7 @@ class CreateItems < ActiveRecord::Migration[5.0]
       t.decimal :conversion_rate, :precision => 12, :scale => 3, :default => 1
       t.decimal :adjustmented_qty, :precision => 12, :scale => 3, :default => 0
       
-      t.timestamps
+      t.timestamps null: false
     end
       add_reference :items, :receiving_uom, references: :uoms
       add_reference :items, :billing_uom, references: :uoms

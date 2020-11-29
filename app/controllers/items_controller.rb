@@ -119,11 +119,16 @@ class ItemsController < ApplicationController
 
         if code.present? && qty_in_stock.present?
           item = Item.find_by_code(code)
+          current_qty_in_stock = item.qty_in_stock
+
           if item.present?
-            if item.update(qty_in_stock: qty_in_stock)
-            else
-              item.errors.full_messages.each do |message|
-                flash_message(:error, "Line no #{i} : #{message}")
+            if qty_in_stock.to_d != current_qty_in_stock
+              if item.update(qty_in_stock: qty_in_stock)
+                StockUpdateLog.create_log(item.id, current_qty_in_stock, qty_in_stock)
+              else
+                item.errors.full_messages.each do |message|
+                  flash_message(:error, "Line no #{i} : #{message}")
+                end
               end
             end
           else

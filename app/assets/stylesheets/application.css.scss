@@ -17,3 +17,16 @@
  *= require_tree ./shopman_css
  *= require_self
  */
+
+.shop_logo span { 
+  display: inline;
+	position: relative;
+	font: 45px Helvetica, Sans-Serif;
+	letter-spacing: -2px;
+  color: rgba(0,0,255,0.5);
+  border-bottom: 3px solid rgba(0,0,255,0.5);
+  display: inline-block;
+  line-height: 0.85;
+  text-shadow: 2px 2px white, 2px -2px white, -2px 2px white, -2px -2px white;
+}
+

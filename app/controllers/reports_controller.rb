@@ -54,9 +54,9 @@ class ReportsController < ApplicationController
     report.start_new_page
 
     report.page.values(
-      shop_name: "ShopMan",
-      shop_address: "Sai Market, APMC, Near Axis Bank, Vashi",
-      shop_mobile_number: "M. 7208516101")
+      shop_name: current_user.shop.present? ? current_user.shop.shop_name : "",
+      shop_address: current_user.shop.present? ? current_user.shop.shop_address : "",
+      shop_mobile_number: "M. #{current_user.shop.present? ? current_user.shop.shop_mobile : ""}")
 
     report.page.list do |list|
 
@@ -91,9 +91,9 @@ class ReportsController < ApplicationController
     report.start_new_page
 
     report.page.values(
-      shop_name: "ShopMan",
-      shop_address: "Sai Market, APMC, Near Axis Bank, Vashi",
-      shop_mobile_number: "M. 7208516101")
+      shop_name: current_user.shop.present? ? current_user.shop.shop_name : "",
+      shop_address: current_user.shop.present? ? current_user.shop.shop_address : "",
+      shop_mobile_number: "M. #{current_user.shop.present? ? current_user.shop.shop_mobile : ""}")
 
     report.page.list do |list|
 
@@ -128,9 +128,10 @@ class ReportsController < ApplicationController
     report.start_new_page
 
     report.page.values(
-      shop_name: "ShopMan",
-      shop_address: "Sai Market, APMC, Near Axis Bank, Vashi",
-      shop_mobile_number: "M. 7208516101")
+      shop_name: current_user.shop.present? ? current_user.shop.shop_name : "",
+      shop_address: current_user.shop.present? ? current_user.shop.shop_address : "",
+      shop_mobile_number: "M. #{current_user.shop.present? ? current_user.shop.shop_mobile : ""}",
+      report_date_time: Time.now)
 
     report.page.list do |list|      
       items.each_with_index do |item,index|
@@ -144,6 +145,7 @@ class ReportsController < ApplicationController
         end
       end
     end
+
     send_data report.generate, filename: "stock.pdf", 
                                 type: 'application/pdf', 
                                 disposition: 'inline'
