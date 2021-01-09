@@ -10,16 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201129062128) do
+ActiveRecord::Schema.define(version: 20201212082619) do
 
   create_table "billing_details", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "billing_id"
     t.integer  "item_id"
-    t.decimal  "item_rate",     precision: 12, scale: 3, default: "0.0"
-    t.decimal  "item_quantity", precision: 12, scale: 3, default: "0.0"
-    t.decimal  "item_total",    precision: 12, scale: 3, default: "0.0"
-    t.datetime "created_at",                                             null: false
-    t.datetime "updated_at",                                             null: false
+    t.decimal  "item_rate",                   precision: 12, scale: 3, default: "0.0"
+    t.decimal  "item_quantity",               precision: 12, scale: 3, default: "0.0"
+    t.decimal  "item_total",                  precision: 12, scale: 3, default: "0.0"
+    t.datetime "created_at",                                                           null: false
+    t.datetime "updated_at",                                                           null: false
+    t.string   "batch_number",     limit: 20
+    t.datetime "manufacture_date"
+    t.datetime "expiry_date"
     t.index ["billing_id"], name: "index_billing_details_on_billing_id", using: :btree
     t.index ["item_id"], name: "index_billing_details_on_item_id", using: :btree
   end
@@ -47,17 +50,35 @@ ActiveRecord::Schema.define(version: 20201129062128) do
     t.datetime "updated_at",      null: false
   end
 
+  create_table "item_in_outs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.string   "document_in_number"
+    t.integer  "item_id"
+    t.string   "batch_number"
+    t.datetime "manufacture_date"
+    t.datetime "expiry_date"
+    t.decimal  "qty_in",             precision: 12, scale: 3, default: "0.0"
+    t.decimal  "qty_out",            precision: 12, scale: 3, default: "0.0"
+    t.decimal  "qty_left",           precision: 12, scale: 3, default: "0.0"
+    t.decimal  "item_rate",          precision: 12, scale: 3, default: "0.0"
+    t.boolean  "qty_left_ind",                                default: false, null: false
+    t.datetime "created_at",                                                  null: false
+    t.datetime "updated_at",                                                  null: false
+    t.index ["item_id"], name: "index_item_in_outs_on_item_id", using: :btree
+  end
+
   create_table "items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "code",                limit: 10,                                          null: false
-    t.string   "name",                limit: 50,                                          null: false
-    t.decimal  "qty_in_stock",                   precision: 12, scale: 3, default: "0.0"
-    t.decimal  "last_receiving_rate",            precision: 12, scale: 3, default: "0.0"
-    t.decimal  "conversion_rate",                precision: 12, scale: 3, default: "1.0"
-    t.decimal  "adjustmented_qty",               precision: 12, scale: 3, default: "0.0"
-    t.datetime "created_at",                                                              null: false
-    t.datetime "updated_at",                                                              null: false
+    t.string   "code",                limit: 10,                                           null: false
+    t.string   "name",                limit: 50,                                           null: false
+    t.decimal  "qty_in_stock",                    precision: 12, scale: 3, default: "0.0"
+    t.decimal  "last_receiving_rate",             precision: 12, scale: 3, default: "0.0"
+    t.decimal  "conversion_rate",                 precision: 12, scale: 3, default: "1.0"
+    t.decimal  "adjustmented_qty",                precision: 12, scale: 3, default: "0.0"
+    t.datetime "created_at",                                                               null: false
+    t.datetime "updated_at",                                                               null: false
     t.integer  "receiving_uom_id"
     t.integer  "billing_uom_id"
+    t.string   "brand_name",          limit: 250
+    t.string   "manufacture_by",      limit: 500
     t.index ["billing_uom_id"], name: "index_items_on_billing_uom_id", using: :btree
     t.index ["receiving_uom_id"], name: "index_items_on_receiving_uom_id", using: :btree
   end
@@ -65,11 +86,14 @@ ActiveRecord::Schema.define(version: 20201129062128) do
   create_table "receiving_details", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "receiving_id"
     t.integer  "item_id"
-    t.decimal  "item_rate",     precision: 12, scale: 3, default: "0.0"
-    t.decimal  "item_quantity", precision: 12, scale: 3, default: "0.0"
-    t.decimal  "item_total",    precision: 12, scale: 3, default: "0.0"
-    t.datetime "created_at",                                             null: false
-    t.datetime "updated_at",                                             null: false
+    t.decimal  "item_rate",                   precision: 12, scale: 3, default: "0.0"
+    t.decimal  "item_quantity",               precision: 12, scale: 3, default: "0.0"
+    t.decimal  "item_total",                  precision: 12, scale: 3, default: "0.0"
+    t.datetime "created_at",                                                           null: false
+    t.datetime "updated_at",                                                           null: false
+    t.string   "batch_number",     limit: 20
+    t.datetime "manufacture_date"
+    t.datetime "expiry_date"
     t.index ["item_id"], name: "index_receiving_details_on_item_id", using: :btree
     t.index ["receiving_id"], name: "index_receiving_details_on_receiving_id", using: :btree
   end
@@ -144,6 +168,7 @@ ActiveRecord::Schema.define(version: 20201129062128) do
   add_foreign_key "billing_details", "billings"
   add_foreign_key "billing_details", "items"
   add_foreign_key "billings", "customers"
+  add_foreign_key "item_in_outs", "items"
   add_foreign_key "receiving_details", "items"
   add_foreign_key "receiving_details", "receivings"
   add_foreign_key "receivings", "vendors"

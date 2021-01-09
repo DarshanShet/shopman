@@ -82,7 +82,9 @@ class ItemsController < ApplicationController
             last_receiving_rate: 0,
             receiving_uom: Uom.find_by_code(row["receiving_uom_code"]),
             conversion_rate: row["conversion_rate"].to_i,
-            billing_uom: Uom.find_by_code(row["billing_uom_code"])
+            billing_uom: Uom.find_by_code(row["billing_uom_code"],
+            brand_name: row["brand_name"],
+            manufacture_by: row["manufacture_by"])
           }
 
           if item.save
@@ -165,6 +167,7 @@ class ItemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def item_params
-      params.require(:item).permit(:code, :name, :qty_in_stock, :last_receiving_rate, :receiving_uom_id, :conversion_rate, :billing_uom_id)
+      params.require(:item).permit(:code, :name, :qty_in_stock, :last_receiving_rate, 
+        :receiving_uom_id, :conversion_rate, :billing_uom_id, :brand_name, :manufacture_by)
     end
 end

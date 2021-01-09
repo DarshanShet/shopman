@@ -10,6 +10,8 @@ class Billing < ApplicationRecord
 
 	attr_accessor :customer_name, :contact_number1, :contact_number2, :address1, :address2
 
+  after_create :update_item_out
+
   scope :get_billing_by_year, -> (year){
     where(billing_date: Date.new(year,1,1)..Date.new(year,12,31))
   }
@@ -48,5 +50,9 @@ class Billing < ApplicationRecord
 
   def self.last_year_sale
     @last_year_sale = Billing.get_billing_by_year(Date.current.year - 1).sum_paid_amount
+  end
+
+  def update_item_out
+    ItemInOut.update_item_out(self)
   end
 end

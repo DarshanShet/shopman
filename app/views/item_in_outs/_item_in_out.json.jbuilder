@@ -1,0 +1,1 @@
+json.extract! item_in_out, :item_id, :batch_number, :manufacture_date, :expiry_date, :qty_left, :item_rate

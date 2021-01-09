@@ -12,7 +12,7 @@
 	        </div>
 	      </div>
 	    </div>
-
+      <% content_for(:title, "Receiving no #{@receiving.receiving_number}")%>
 			<%= render 'form', receiving: @receiving %>
 		</div>
 	</div>

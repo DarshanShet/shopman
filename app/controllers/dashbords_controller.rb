@@ -15,5 +15,7 @@ class DashbordsController < ApplicationController
     @sales_billing_by_month = Billing.year_sales
     @last_year_sale = Billing.last_year_sale
     @current_year_sale = @sales_billing_by_month.values.inject { |a, b| a + b }
+
+    @top_selling_items = BillingDetail.top_selling_items
   end
 end

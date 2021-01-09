@@ -14,12 +14,12 @@ var lookup = new function () {
           success: function(data) {
           	var mapData = $.map(data, function (item) {
               return {
-                label: `${item.name} (${item.qty_in_stock})`,
-                name: item.name,
+                label: item.name,
                 value: item.id,
-                last_receiving_rate: me.getReceivingRate(item),
                 conversion_rate: item.conversion_rate == null || item.conversion_rate == undefined ? 1 : item.conversion_rate,
-                qty_in_stock: item.qty_in_stock
+                brand_name: item.brand_name,
+                manufacture_by: item.manufacture_by,
+                receiving_uom: item.receiving_uom
               }
 	          });
             response(mapData);
@@ -27,7 +27,7 @@ var lookup = new function () {
         });
 			},
       focus: function( event, ui ) {
-        $(this).val( ui.item.name );
+        $(this).val( ui.item.label );
         return false;
       },
       select: function( event, ui ) {
@@ -53,20 +53,20 @@ var lookup = new function () {
           }
           toastr["error"]('Item already selected can not select same item');
         } else {
-          $(this).val(ui.item.name);
+          $(this).val(ui.item.label);
           $(this).siblings(".itemId").val(ui.item.value);
-          $(this).parents("tr").find(".itemRate").val(ui.item.last_receiving_rate);
+          
           $(this).parents("tr").find(".conversionRate").val(ui.item.conversion_rate);
-          $(this).parents("tr").find(".currentQtyInStock").val(ui.item.qty_in_stock);
+          $(this).parents("tr").find(".brandName").val(ui.item.brand_name);
+          $(this).parents("tr").find(".manufactureBy").val(ui.item.manufacture_by);
+          $(this).parents("tr").find(".uom").val(ui.item.receiving_uom);
         }
       },
       change: function (event, ui) {
         if (ui.item == null || ui.item == undefined ) {
           $(this).val("");
           $(this).siblings("input.itemId").val("");
-          $(this).parents("tr").find(".itemRate").val("");
-          $(this).parents("tr").find(".conversionRate").val("");
-          $(this).parents("tr").find(".currentQtyInStock").val("");
+          $(this).parents("tr").find("input").val("");
         }
         $(this).siblings("input.itemId").trigger('change');
       }

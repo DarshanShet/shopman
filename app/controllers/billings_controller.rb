@@ -1,5 +1,4 @@
 class BillingsController < ApplicationController
-  require "thinreports-rails"
   before_action :set_billing, only: [:show, :edit, :destroy]
 
   # GET /billings
@@ -112,7 +111,8 @@ class BillingsController < ApplicationController
     def create_billing_params
       params.require(:billing).permit(:customer_id, :billing_date, :billing_number, :total_amount, :paid_amount, :pending_amount,
         :customer_name, :contact_number1, :contact_number2, :address1, :address2,
-        billing_details_attributes: [:receiving_id, :item_id, :item_quantity, :item_rate, :item_total]
+        billing_details_attributes: [:billing_id, :item_id, :item_quantity, :item_rate, :item_total, 
+          :batch_number, :manufacture_date, :expiry_date]
       )
     end
 
@@ -121,7 +121,7 @@ class BillingsController < ApplicationController
     end
 
     def render_bill(billing)
-      report = ::Thinreports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'customer_bill.tlf')
+      report = ::Thinreports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'customer_bill_landscape.tlf')
       
       report.start_new_page
 
@@ -147,17 +147,21 @@ class BillingsController < ApplicationController
             list.add_row do |row|
               row.values no: index, 
                         item_name: detail.item.name, 
+                        batch_no: detail.batch_number, 
+                        brand_name: detail.item.brand_name, 
+                        mfg_date: detail.manufacture_date, 
+                        expiry_date: detail.expiry_date,
                         qty: detail.item_quantity,
                         rate: detail.item_rate, 
                         amount: detail.item_total
             end
           end
 
-          if billing.billing_details.count() < 30
-            loopNo = 30 - billing.billing_details.count()
+          if billing.billing_details.count() < 24
+            loopNo = 24 - billing.billing_details.count()
 
             loopNo.times do |t|
-              list.add_row(no: "", item_name: "", qty: "", rate: "", amount: "")
+              list.add_row(no: "", item_name: "", batch_no: "", brand_name: "", mfg_date: "", expiry_date: "", qty: "", rate: "", amount: "")
             end
           end
       end

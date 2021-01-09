@@ -4,11 +4,17 @@
   <td><%= f.text_field :item_name, class: "itemLookup form-control form-control-alternative table_text_field", value: item_details[:name] %>
   	<%= f.hidden_field :item_id, class: "itemId" %>
   </td>
+  <td><%= f.text_field :brand_name, class: "brandName form-control form-control-alternative table_text_field", readonly: "readonly", tabindex: "-1", value: item_details[:brand_name]  %></td>
+  <td><%= f.text_field :manufacture_by, class: "manufactureBy form-control form-control-alternative table_text_field", readonly: "readonly", tabindex: "-1", value: item_details[:manufacture_by]  %></td>
+  <td><%= f.text_field :batch_number, class: "batchNumber form-control form-control-alternative table_text_field number_field" %></td>
+  <td><%= f.text_field :manufacture_date, class: "manufactureDate datepicker form-control form-control-alternative table_text_field" %></td>
+  <td><%= f.text_field :expiry_date, class: "expiryDate datepicker form-control form-control-alternative table_text_field" %></td>
+  <td><input type="text" class="currentQtyInStock form-control form-control-alternative table_text_field number_field" readonly="readonly" tabindex="-1" ></td>
   <td>
     <%= f.text_field :item_quantity, class: "itemQuantity selectAllText form-control form-control-alternative table_text_field number_field" %>
     <input type="hidden" class="conversionRate" value="<%= item_details[:conversion_rate] %>">
   </td>
+  <td><%= f.text_field :uom, class: "uom form-control form-control-alternative table_text_field", readonly: "readonly", tabindex: "-1", value: !item_details.is_a?(Hash) && item_details.receiving_uom.present? ? item_details.receiving_uom.code : ""  %></td>
   <td><%= f.text_field :item_rate, class: "itemRate selectAllText form-control form-control-alternative table_text_field number_field" %></td>
-  <td><%= f.text_field :item_total, class: "itemTotal form-control form-control-alternative table_text_field number_field", readonly: "readonly" %></td>
-  <td><input type="text" class="currentQtyInStock form-control form-control-alternative table_text_field number_field" readonly="readonly"></td>
+  <td><%= f.text_field :item_total, class: "itemTotal form-control form-control-alternative table_text_field number_field", readonly: "readonly", tabindex: "-1" %></td>
 </tr>

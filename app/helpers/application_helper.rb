@@ -34,7 +34,7 @@ module ApplicationHelper
   end
 
   def get_item_details(obj)
-    return obj.present? && obj.item_id.present? ? obj.item : { name: "", conversion_rate: 1, qty_in_stock: 0}
+    return obj.present? && obj.item_id.present? ? obj.item : { name: "", conversion_rate: 1, qty_in_stock: 0, brand_name: "", manufacture_by: ""}
   end
 
   def flash_message(type, text)

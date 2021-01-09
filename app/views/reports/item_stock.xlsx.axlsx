@@ -1,7 +1,7 @@
 wb = xlsx_package.workbook
 wb.add_worksheet(name: "itemStock") do |sheet|
-  sheet.add_row ['Code', "Name", "Qty in stock", "UOM"]
-  @items.each do |item|
-    sheet.add_row [item.code, item.name, item.qty_in_stock, item.receiving_uom.name]
+  sheet.add_row ['Code', "Name", "Batch no", "Brand name", "MFG Date", "Expiry Date", "Qty in stock", "UOM"]
+  @item_in_outs.each do |item_in_out|
+    sheet.add_row [item_in_out.item.code, item_in_out.item.name, item_in_out.batch_number, item_in_out.item.brand_name, item_in_out.manufacture_date, item_in_out.expiry_date, item_in_out.qty_left, item_in_out.item.receiving_uom.name]
   end
 end

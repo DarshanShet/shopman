@@ -1,8 +1,14 @@
 <tr class="billing_details">
   <% item_details = get_item_details(f.object)%>
   <td><%= item_details[:name] %></td>
+  <td><%= item_details[:brand_name] %></td>
+  <td><%= item_details[:manufacture_by] %></td>
+  <td><%= f.object.batch_number %></td>
+  <td><%= display_date(f.object.manufacture_date) %></td>
+  <td><%= display_date(f.object.expiry_date) %></td>
+  <td><%= item_details[:qty_in_stock] %></td>
   <td><%= f.object.item_quantity %></td>
+  <td><%= item_details.receiving_uom.present? ? item_details.receiving_uom.code : "" %></td>
   <td><%= f.object.item_rate %></td>
   <td><%= f.object.item_total %></td>
-  <td><%= item_details[:qty_in_stock] %></td>
 </tr>

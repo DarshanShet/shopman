@@ -33,12 +33,12 @@ class ReportsController < ApplicationController
 
   def item_stock
     respond_to do |format|
-      @items = Item.search()
-      @items = @items.qty_in_stock_greater_than_zero if params[:exclude_zero].present?
+      @item_in_outs = ItemInOut.includes(:item => [:receiving_uom]).search()
+      @item_in_outs = @item_in_outs.filter_qty_left_ind if params[:exclude_zero].present?
       
-      if @items.present?
+      if @item_in_outs.present?
         format.xlsx { response.headers['Content-Disposition'] = 'attachment; filename="item_stock.xlsx"' }
-        format.pdf { render_item_stock(@items) }
+        format.pdf { render_item_stock(@item_in_outs) }
       else
         format.xlsx
         format.pdf {}
@@ -122,8 +122,8 @@ class ReportsController < ApplicationController
                                 disposition: 'inline'
   end
 
-  def render_item_stock(items)
-    report = ::Thinreports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'item_current_stock.tlf')
+  def render_item_stock(item_in_outs)
+    report = ::Thinreports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'item_current_stock_landscape.tlf')
       
     report.start_new_page
 
@@ -134,14 +134,18 @@ class ReportsController < ApplicationController
       report_date_time: Time.now)
 
     report.page.list do |list|      
-      items.each_with_index do |item,index|
+      item_in_outs.each_with_index do |item_in_out,index|
         index += 1
         list.add_row do |row|
           row.values no: index, 
-                    item_code: item.code, 
-                    item_name: item.name,
-                    qty_in_stk: item.qty_in_stock, 
-                    uom_name: item.receiving_uom.name
+                    item_code: item_in_out.item.code, 
+                    item_name: item_in_out.item.name,
+                    batch_no: item_in_out.batch_number,
+                    brand_name: item_in_out.item.brand_name,
+                    manufacture_date: item_in_out.manufacture_date,
+                    expiry_date: item_in_out.expiry_date,
+                    qty_in_stk: item_in_out.qty_left, 
+                    uom_name: item_in_out.item.receiving_uom.name
         end
       end
     end

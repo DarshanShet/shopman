@@ -4,8 +4,9 @@ class ReceivingDetail < ApplicationRecord
 
 	validates :item, :item_rate, :item_quantity, :item_total, presence: true
 	validates :item_quantity, :item_rate, :item_total, numericality: { greater_than: 0 }
+  validates :batch_number, presence: true, length: {maximum: 20}
 
-	attr_accessor :item_name
+	attr_accessor :item_name, :brand_name, :manufacture_by, :uom
 
 	after_create :update_qty_in_stock
 

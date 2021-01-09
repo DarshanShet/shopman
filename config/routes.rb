@@ -26,6 +26,9 @@ Rails.application.routes.draw do
       get :item_stock
     end
   end
+  
+  resources :item_in_outs, only: [:index]
+
 
   devise_for :users
 

@@ -18,5 +18,6 @@
 //= require moment
 //= require js/Chart.min.js
 //= require js/Chart.extension.js
+//= require js/datatables.min.js
 //= require_tree ./shopman_js
 

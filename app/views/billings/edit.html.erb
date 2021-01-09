@@ -13,7 +13,7 @@
 	        </div>
 	      </div>
 	    </div>
-
+      <% content_for(:title, "Bill no #{@billing.billing_number}")%>
 			<%= render 'form', billing: @billing %>
 		</div>
 	</div>

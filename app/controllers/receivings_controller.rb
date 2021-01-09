@@ -84,7 +84,8 @@ class ReceivingsController < ApplicationController
     def create_receiving_params
       params.require(:receiving).permit(:receiving_date, :receiving_number, 
         :bill_number, :bill_date, :total_amount, :vendor_id, :paid_amount, :pending_amount,
-        receiving_details_attributes: [:receiving_id, :item_id, :item_quantity, :item_rate, :item_total])
+        receiving_details_attributes: [:receiving_id, :item_id, :item_quantity, :item_rate, :item_total, 
+          :batch_number, :manufacture_date, :expiry_date])
     end
 
     def update_receiving_params
@@ -92,7 +93,7 @@ class ReceivingsController < ApplicationController
     end
 
     def render_receiving(receiving)
-      report = ::Thinreports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'receiving_bill.tlf')
+      report = ::Thinreports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'receiving_bill_landscape.tlf')
       
       report.start_new_page
 
@@ -118,17 +119,21 @@ class ReceivingsController < ApplicationController
           list.add_row do |row|
             row.values no: index, 
                       item_name: detail.item.name, 
+                      batch_no: detail.batch_number, 
+                      brand_name: detail.item.brand_name, 
+                      mfg_date: detail.manufacture_date, 
+                      expiry_date: detail.expiry_date,
                       qty: detail.item_quantity,
                       rate: detail.item_rate, 
                       amount: detail.item_total
           end
         end
 
-        if receiving.receiving_details.count() < 30
-          loopNo = 30 - receiving.receiving_details.count()
+        if receiving.receiving_details.count() < 24
+          loopNo = 24 - receiving.receiving_details.count()
 
           loopNo.times do |t|
-            list.add_row(no: "", item_name: "", qty: "", rate: "", amount: "")
+            list.add_row(no: "", item_name: "", batch_no: "", brand_name: "", mfg_date: "", expiry_date: "", qty: "", rate: "", amount: "")
           end
         end
       end

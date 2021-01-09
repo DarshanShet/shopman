@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  item: one
+  batch_number: MyString
+  qty_in: 9.99
+  qty_out: 9.99
+  qty_left: 9.99
+  qty_left_ind: false
+  manufacture_date: 2020-12-12 13:56:19
+  expiry_date: 2020-12-12 13:56:19
+  document_in_number: MyString
+
+two:
+  item: two
+  batch_number: MyString
+  qty_in: 9.99
+  qty_out: 9.99
+  qty_left: 9.99
+  qty_left_ind: false
+  manufacture_date: 2020-12-12 13:56:19
+  expiry_date: 2020-12-12 13:56:19
+  document_in_number: MyString

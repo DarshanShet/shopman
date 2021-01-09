@@ -57,39 +57,53 @@
 
     <div class="pl-lg-1">
       <div class="col-xl-12 mb-8 mb-xl-0">
-        <div class="card shadow">
-          <div class="table-responsive">
-            <!-- Projects table -->
-            <table class="table align-items-center table-flush">
-              <thead class="thead-light">
-               <tr>
-                  <% if f.object.id.blank? %>
-                    <th scope="col">Delete</th>
-                  <% end %>
-                  <th scope="col">Item name</th>
-                  <th scope="col">Item quantity</th>
-                  <th scope="col">Item rate</th>
-                  <th scope="col">Item total</th>
-                  <th scope="col">Current qty in stock</th>
-                </tr>
-              </thead>
-              <tbody id="renderDetails">
-                <% if f.object.present? && f.object.billing_details.present? %>
-                  <% f.object.billing_details.each do |detail| %>
-                    <%= f.fields_for :billing_details, detail do |builder| %>
-                      <%= render "show_billing_details", f: builder %>
-                    <% end %>
-                  <% end %>
-                <% else %>
-                  <% for detail_index in 0..10 %>
-                    <%= f.fields_for :billing_details, BillingDetail.new do |builder| %>
-                      <%= render "billing_details", f: builder %>
-                    <% end %>
+        <div class="table-responsive">
+          <!-- Projects table -->
+          <table class="table align-items-center table-flush table_details" id="detailsTable">
+            <thead class="thead-light">
+              <tr>
+                <% if f.object.id.blank? %>
+                  <th scope="col">Delete</th>
+                <% end %>
+                <th scope="col">Item name                                     </th>
+                <th scope="col">Brand                                         </th>
+                <th scope="col">Mfg By                                        </th>
+                <th scope="col">Batch No               </th>
+                <th scope="col">Mfg date                  </th>
+                <th scope="col">Exp date                  </th>
+                <th scope="col">Current qty in stock               </th>
+                <th scope="col">Item quantity               </th>
+                <th scope="col">Size      </th>
+                <th scope="col">Item rate         </th>
+                <th scope="col">Item total        </th>
+              </tr>
+            </thead>
+            <tbody id="renderDetails">
+              <% if f.object.present? && f.object.billing_details.present? && f.object.id.present? %>
+                <% f.object.billing_details.each do |detail| %>
+                  <%= f.fields_for :billing_details, detail do |builder| %>
+                    <%= render "show_billing_details", f: builder %>
                   <% end %>
                 <% end %>
-              </tbody>
-            </table>
-          </div>
+              <% elsif f.object.present? && f.object.billing_details.present? %>
+                <% f.object.billing_details.each do |detail| %>
+                  <%= f.fields_for :billing_details, detail do |builder| %>
+                    <%= render "billing_details", f: builder %>
+                  <% end %>
+                <% end %>
+              <% else %>
+                <% for detail_index in 0..10 %>
+                  <%= f.fields_for :billing_details, BillingDetail.new do |builder| %>
+                    <%= render "billing_details", f: builder %>
+                  <% end %>
+                <% end %>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <div class="text-left" style="display:none">
+          Copy Items/Export Items
+          <div id="exportButtons"></div>
         </div>
       </div>
     </div>

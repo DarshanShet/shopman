@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <title>Shopman</title>
+    <title><%= content_for(:title) || "Shopman"  %></title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -24,6 +24,7 @@
       </div>
       <%= render 'layouts/floating_btn' %>
     <% else %>
+      <%= render 'layouts/notifications' %>
       <%= yield %>
     <% end %>
     
