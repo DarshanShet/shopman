@@ -18,7 +18,9 @@ Rails.application.routes.draw do
   resources :uoms do
     collection { post :import }
   end
-  resources :dashbords, only: [:index]
+  resources :dashbords, only: [:index] do 
+    collection { get :informations }
+  end
   resources :reports, only: [:index] do
     collection do
       get :pending_amount_customers

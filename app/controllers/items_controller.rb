@@ -4,7 +4,7 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.json
   def index
-    @items = Item.search(params).page(params[:page]).per(per_page_count)
+    @items ||= Item.search(params).page(params[:page]).per(per_page_count)
 
     respond_to do |format|
       format.html

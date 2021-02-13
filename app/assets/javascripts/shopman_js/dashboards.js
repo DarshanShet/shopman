@@ -1,4 +1,4 @@
-var dashbords = new function () {
+var dashboards = new function () {
   var me = this;
 
   this.pageLoad = function(){

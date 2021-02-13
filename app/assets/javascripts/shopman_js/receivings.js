@@ -113,6 +113,7 @@ var receiving = new function () {
       if(itemRate && !isNaN(itemRate) && itemQty && !isNaN(itemQty)){
         let totalAmount = parseFloat(itemQty) * parseFloat(itemRate);
         $(totalAmountInput).val(totalAmount.toFixed(2));
+        me.calculateTotalReceivingAmount();
       } else {
         $(totalAmountInput).val(0);
         me.calculateTotalReceivingAmount();

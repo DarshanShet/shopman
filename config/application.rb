@@ -13,5 +13,9 @@ module Shopman
     # -- all .rb files in that directory are automatically loaded.
     config.time_zone = "Mumbai"
     config.active_record.default_timezone = :local
+
+    RenderAsync.configure do |config|
+      config.turbolinks = true # Enable this option if you are using Turbolinks 5+
+    end
   end
 end

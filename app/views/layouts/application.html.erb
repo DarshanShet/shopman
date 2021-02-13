@@ -21,6 +21,7 @@
         <%= render "common/user_nav", icon_class: get_icon_class, page_name: get_page_name %>
         <%= render 'layouts/notifications' %>
         <%= yield %>
+        <%= content_for :render_async %>
       </div>
       <%= render 'layouts/floating_btn' %>
     <% else %>

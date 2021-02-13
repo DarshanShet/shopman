@@ -85,12 +85,16 @@ $(document).on('turbolinks:load', function() {
       }
       break;
     case "dashbords":
-        dashbords.pageLoad();
+        dashboards.pageLoad();
       break;
     case "reports":
         loadDatepicker();
         lookup.customerLookup();
         lookup.vendorLookup();
       break;
+  }
+
+  if ($("#btnFlot") !== undefined){
+    $( "#btnFlot" ).draggable();
   }
 });

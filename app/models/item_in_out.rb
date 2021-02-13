@@ -2,6 +2,9 @@ class ItemInOut < ApplicationRecord
   belongs_to :item
 
   scope :filter_qty_left_ind, -> { where(qty_left_ind: true) }
+  scope :filter_weekly_expiry_items, -> { 
+    where("expiry_date >= ? and expiry_date <= ?", "#{DateTime.now.beginning_of_week.to_date}", "#{DateTime.now.end_of_week.to_date}")
+  }
   scope :filter_by_item, -> (key_item) { where(item_id: key_item) }
   scope :filter_by_batch_number, -> (key_batch) { where(batch_number: key_batch) }
 
